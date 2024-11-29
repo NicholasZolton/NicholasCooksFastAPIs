@@ -23,3 +23,10 @@ If you want to run the API through lambda, follow these instructions:
 First, make sure you enable Mangum in the pyproject file, install it with `poetry install`, and uncomment the Mangum lines in the `nicholascooks/app.py`.
 
 Second, create the Lambda in AWS and set the handler to be `nicholascooks.app.handler`. Feel free to modify the other settings however you want, and do not forget to add your environment variables.
+
+### Other/Credits
+
+Current I (Nicholas Zolton) am the only one working on this project.
+
+If you like this, I highly recommend trying it out with my neovim config.
+

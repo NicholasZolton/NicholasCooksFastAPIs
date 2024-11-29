@@ -16,3 +16,5 @@ lambda_package:
 dev:
 	python3 main.py
 
+test:
+	pytest

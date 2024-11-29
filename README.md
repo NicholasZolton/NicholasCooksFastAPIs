@@ -30,3 +30,6 @@ Current I (Nicholas Zolton) am the only one working on this project.
 
 If you like this, I highly recommend trying it out with my neovim config.
 
+### Contributions
+
+I am well aware that this is far from perfect, so if anybody knows or wants to implement a better way to do anything, please feel free to make PRs!

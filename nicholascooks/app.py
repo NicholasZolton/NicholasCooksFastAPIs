@@ -4,8 +4,6 @@ from dotenv import load_dotenv
 from nicholascooks.routers import example_router, user_info_router
 from nicholascooks.routers import example_router
 from nicholascooks.utils.logger import log
-
-# from mangum import Mangum
 import os
 
 
@@ -26,6 +24,10 @@ if os.getenv("LOCALLY_TESTING") == "1":
         allow_methods=["*"],
         allow_headers=["*"],
     )
+
+    @app.get("/")
+    def root(request: Request):
+        return {"message": f"{request.base_url}/docs"}
 elif os.getenv("DEV_ENV") == "1":
     log.info("Running in development environment...")
     app = FastAPI(title="NicholasCooksAPIs")
@@ -35,11 +37,3 @@ else:
 
 app.include_router(user_info_router.router)
 app.include_router(example_router.router)
-
-
-@app.get("/")
-def root(request: Request):
-    return {"message": f"{request.base_url}/docs"}
-
-
-# handler = Mangum(app=app)

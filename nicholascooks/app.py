@@ -36,4 +36,4 @@ else:
     app = FastAPI(title="NicholasCooksAPIs", docs_url=None, redoc_url=None)
 
 app.include_router(user_info_router.router)
-app.include_router(example_router.router)
+# app.include_router(example_router.router)

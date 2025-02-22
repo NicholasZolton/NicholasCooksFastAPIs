@@ -15,7 +15,6 @@ router = APIRouter(
 @router.get("")
 def get_user_info(
     db: Session = Depends(get_db),
-    current_user: models.UserORM = Depends(get_current_user),
+    current_user: models.User = Depends(get_current_user),
 ) -> models.User:
-    user = models.User.model_validate(current_user)
-    return user
+    return current_user

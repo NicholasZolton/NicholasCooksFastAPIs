@@ -24,7 +24,7 @@ def get_db():
 def get_current_user(
     token: Optional[HTTPAuthorizationCredentials] = Depends(HTTPBearer()),
     db: Session = Depends(get_db),
-) -> models.UserORM:
+) -> models.User:
     if token is None:
         raise UnauthenticatedException
 
@@ -65,6 +65,7 @@ def get_current_user(
     #     ):
     #         user.stripe_customer = payload["stripe_customer"]
     #         db.commit()
+    user = models.User.model_validate(user)
     return user
 
 

@@ -4,17 +4,37 @@ update_database:
 	alembic revision --autogenerate -m "$$ALEMBIC_MESSAGE"
 	alembic upgrade head
 
+# packaging ONLY works on linux, requires `zip` as well
 lambda_package:
-	-rm ./dep -r
-	-rm lambda_artifact.zip
-	pip install -t dep -r requirements.txt --platform manylinux2014_x86_64 --only-binary=:all:
-	cd dep; zip ../lambda_artifact.zip -r .
-	cd ..
-	zip ./lambda_artifact.zip -u nicholascooks -r
-	-rm ./dep -r
+	ifdef os
+		echo "Packaging only works on Linux."
+	else
+		-rm ./dep -r
+		-rm lambda_artifact.zip
+		pip freeze > requirements.txt
+		pip install -t dep -r requirements.txt --platform manylinux2014_x86_64 --only-binary=:all:
+		cd dep; zip ../lambda_artifact.zip -r .
+		cd ..
+		zip ./lambda_artifact.zip -u nicholascooks -r
+		zip ./lambda_artifact.zip -u lambda.py
+		-rm ./dep -r
+		-rm requirements.txt
+	endif
 
+# check for windows, if so use .venv/Scripts/activate
+ifdef os
 dev:
-	python3 main.py
+	echo "Windows detected, using .venv/Scripts/activate"
+	.venv/Scripts/activate && python dev.py
+else
+# if linux, use .venv/bin/activate
+dev:
+	echo "Linux detected, using .venv/bin/activate"
+	( \
+		. .venv/bin/activate; \
+		python3 ./dev.py; \
+	)
+endif
 
 test:
-	pytest
+	.venv/bin/pytest

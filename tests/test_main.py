@@ -1,18 +1,14 @@
 # to test run `pytest` in the terminal
-from typing import Annotated, Optional
-from fastapi import Depends, HTTPException, Header
-from fastapi.security import HTTPAuthorizationCredentials, HTTPBearer
+from typing import Annotated
+from fastapi import HTTPException, Header
 import pytest
 from fastapi.testclient import TestClient
-from starlette.types import HTTPExceptionHandler
 from nicholascooks.app import app
 from nicholascooks.utils.dependencies import get_current_user, get_db
 from sqlalchemy.orm import sessionmaker
 from nicholascooks.orm import models
 from nicholascooks.orm.models import *
 from sqlalchemy import create_engine
-
-from nicholascooks.utils.exceptions import UnauthenticatedException
 
 TEST_USER_ID = "testing|123"
 

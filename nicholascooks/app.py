@@ -27,7 +27,7 @@ if os.getenv("LOCALLY_TESTING") == "1":
 
     @app.get("/")
     def root(request: Request):
-        return {"message": f"{request.base_url}/docs"}
+        return {"message": f"{request.base_url}docs"}
 elif os.getenv("DEV_ENV") == "1":
     log.info("Running in development environment...")
     app = FastAPI(title="NicholasCooksAPIs")

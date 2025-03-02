@@ -8,7 +8,7 @@ from nicholascooks.utils.exceptions import (
 )
 from nicholascooks.utils.crud import get_or_create_user
 from nicholascooks.orm import models
-from sqlalchemy.orm import Session
+from sqlmodel import Session
 import os
 import jwt
 
@@ -65,11 +65,10 @@ def get_current_user(
     #     ):
     #         user.stripe_customer = payload["stripe_customer"]
     #         db.commit()
-    user = models.User.model_validate(user)
     return user
 
 
-# def check_active_stripe_subscription(current_user: models.UserORM, db: Session):
+# def check_active_stripe_subscription(current_user: models.User, db: Session):
 #     stripe.api_key = os.getenv("STRIPE_SECRET_KEY")
 #     sublist = stripe.Subscription.list(
 #         customer=str(current_user.stripe_customer), status="active"

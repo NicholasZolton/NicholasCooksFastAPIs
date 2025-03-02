@@ -1,13 +1,15 @@
 from sqlalchemy.orm import Session
+from sqlmodel import select
 from nicholascooks.orm import models
 
 
-def get_or_create_user(db: Session, userid: str) -> models.UserORM:
-    user = db.query(models.UserORM).filter(models.UserORM.auth0_sub == userid).first()
+def get_or_create_user(db: Session, userid: str) -> models.User:
+    stmt = select(models.User).where(models.User.auth0_id == userid)
+    user = db.scalars(stmt).first()
     if user:
         return user
     else:
-        user = models.UserORM(auth0_sub=userid)
+        user = models.User(auth0_id=userid)
         db.add(user)
         db.commit()
         return user

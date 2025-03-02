@@ -11,7 +11,6 @@ router = APIRouter(
 
 
 # protected route (depends on get_current_user)
-@router.get("/", include_in_schema=False)
 @router.get("")
 def get_user_info(
     db: Session = Depends(get_db),

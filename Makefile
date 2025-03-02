@@ -1,7 +1,9 @@
-update_database:
+db_update:
 	@echo "Enter your alembic upgrade message: "; \
 	read ALEMBIC_MESSAGE; \
 	alembic revision --autogenerate -m "$$ALEMBIC_MESSAGE"
+
+db_upgrade:
 	alembic upgrade head
 
 # packaging ONLY works on linux, requires `zip` as well
